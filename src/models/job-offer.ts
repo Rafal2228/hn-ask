@@ -3,7 +3,9 @@ export interface JobOffer {
   by: string;
   company?: string;
   position?: string;
-  salary?: string;
-  remote?: string;
+  minSalary?: string | null;
+  maxSalary?: string | null;
+  currency?: string | null;
+  remote?: boolean;
   description?: string;
 }

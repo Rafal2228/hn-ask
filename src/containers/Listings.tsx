@@ -2,7 +2,6 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { JobList } from '../components/JobList';
 import { Loader } from '../components/Loader';
-import { getStory } from '../helpers/api';
 import { JobOffer } from '../models/job-offer';
 
 const Wrapper = styled.div`
@@ -45,7 +44,7 @@ function listingReducer(state: ListingState, action: any) {
 }
 
 export interface ListingsProps {
-  storyIds: number[];
+  jobs: JobOffer[];
 }
 
 export function Listings(props: ListingsProps) {
@@ -53,12 +52,6 @@ export function Listings(props: ListingsProps) {
     listingReducer,
     listingDefaultState
   );
-
-  React.useEffect(() => {
-    const stories = Promise.all(props.storyIds.map((id) => getStory(id)));
-    // tslint:disable-next-line:no-console
-    console.log(stories);
-  }, [props.storyIds]);
 
   return (
     <Wrapper>
