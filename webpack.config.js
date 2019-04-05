@@ -44,22 +44,11 @@ module.exports = {
         test: /\.ts$/,
         loader: 'babel-loader',
         exclude: /node_modules/,
-        options: {
-          presets: [[require('@babel/preset-typescript')]],
-        },
       },
       {
         test: /\.tsx$/,
         loader: 'babel-loader',
         exclude: /node_modules/,
-        options: {
-          presets: [
-            [
-              require('@babel/preset-react'),
-              require('@babel/preset-typescript'),
-            ],
-          ],
-        },
       },
     ],
   },
