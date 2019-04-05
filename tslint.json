@@ -1,6 +1,7 @@
 {
   "extends": ["tslint:latest", "tslint-react"],
   "rules": {
-    "quotemark": false
+    "quotemark": false,
+    "interface-name": false
   }
 }
