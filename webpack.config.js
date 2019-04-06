@@ -50,6 +50,12 @@ module.exports = {
         loader: 'babel-loader',
         exclude: /node_modules/,
       },
+      {
+        test: /\.json$/,
+        type: 'javascript/auto',
+        loader: 'file-loader',
+        exclude: /node_modules/,
+      },
     ],
   },
 

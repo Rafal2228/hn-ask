@@ -107,7 +107,7 @@ async function scrape() {
         !!c.text &&
         typeof c.text === 'string' &&
         c.text.indexOf('<p>') !== -1 &&
-        c.text.indexOf('|') !== -1
+        c.text.split('<p>')[0].indexOf('|') !== -1
     )
     .map((comment: Comment) => {
       const firstLine = comment.text.split('<p>')[0];
