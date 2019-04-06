@@ -221,6 +221,21 @@ async function scrape() {
 
         minSalary = +digits[0];
         maxSalary = +(digits[1] || digits[0]);
+
+        if (minSalary < 1000) {
+          minSalary *= 1000;
+        }
+
+        if (maxSalary < 1000) {
+          maxSalary *= 1000;
+        }
+
+        if (minSalary > maxSalary) {
+          const tmp = minSalary;
+          minSalary = maxSalary;
+          maxSalary = tmp;
+        }
+
         groups = groups.filter(g => g !== group);
         break;
       }

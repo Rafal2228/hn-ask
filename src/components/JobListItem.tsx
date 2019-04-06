@@ -9,6 +9,17 @@ const Wrapper = styled.div`
   padding: 1em;
   display: flex;
   align-items: center;
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+`;
+
+const TextTruncate = styled.div`
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 `;
 
 export interface JobListItemProps {
@@ -26,7 +37,9 @@ export function JobListItem(props: JobListItemProps) {
       className={props.className}
       style={props.style}
     >
-      {position} @ {company}
+      <TextTruncate>
+        {position} @ {company}
+      </TextTruncate>
     </Wrapper>
   );
 }

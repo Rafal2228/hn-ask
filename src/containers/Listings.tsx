@@ -1,15 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Filters } from '../components/Filters';
 import { JobList } from '../components/JobList';
 import { Loader } from '../components/Loader';
 import jobsUrl from '../jobs.json';
+import { JobFilters } from '../models/job-filters';
 import { JobOffer } from '../models/job-offer';
 
 const Wrapper = styled.div`
   width: 100%;
-  max-width: 1200px;
   height: 100%;
   margin: 0 auto;
+  display: flex;
 `;
 
 const LoaderWrapper = styled.div`
@@ -18,24 +20,37 @@ const LoaderWrapper = styled.div`
   align-items: center;
   justify-content: center;
   height: 100%;
+  width: 100%;
 
   span {
     padding-top: 1em;
   }
 `;
 
+const FiltersWrapper = styled.div`
+  background: #161719;
+  color: white;
+  height: 100%;
+  width: 300px;
+`;
+
 const ListWrapper = styled.div`
   height: 100%;
+  width: calc(100% - 300px);
 `;
 
 interface ListingState {
   pending: boolean;
   jobs: JobOffer[] | null;
+  filters: JobFilters | null;
+  filteredJobs: JobOffer[] | null;
 }
 
 const listingDefaultState: ListingState = {
   pending: true,
   jobs: null,
+  filters: null,
+  filteredJobs: null,
 };
 
 function listingReducer(
@@ -45,18 +60,68 @@ function listingReducer(
   switch (action.type) {
     case 'LOAD': {
       return {
+        ...state,
         pending: true,
       };
     }
     case 'LOAD_SUCCESS': {
       return {
+        ...state,
         pending: false,
         jobs: action.payload,
+        filteredJobs: action.payload,
       };
     }
     case 'LOAD_FAILURE': {
       return {
+        ...state,
         pending: false,
+      };
+    }
+    case 'FILTER': {
+      const filters = action.payload as JobFilters;
+      const filteredJobs =
+        state.jobs &&
+        state.jobs.filter(job => {
+          if (filters.currency) {
+            if (job.currency !== filters.currency) {
+              return false;
+            }
+
+            if (
+              filters.salaryMin &&
+              job.maxSalary &&
+              filters.salaryMin > job.maxSalary
+            ) {
+              return false;
+            }
+
+            if (
+              filters.salaryMax &&
+              job.minSalary &&
+              filters.salaryMax < job.minSalary
+            ) {
+              return false;
+            }
+          }
+
+          if (!!filters.positionTags && !!filters.positionTags.length) {
+            return !!job.positionTags.find(
+              tag => (filters.positionTags as string[]).indexOf(tag) !== -1
+            );
+          }
+
+          if (Object.prototype.hasOwnProperty.call(filters, 'remote')) {
+            return job.remote === filters.remote;
+          }
+
+          return true;
+        });
+
+      return {
+        ...state,
+        filters,
+        filteredJobs,
       };
     }
   }
@@ -94,15 +159,25 @@ export function Listings() {
           <span>Loading job offerings ...</span>
         </LoaderWrapper>
       ) : (
-        <ListWrapper>
-          <JobList
-            jobs={state.jobs}
-            onJobSelected={job => {
-              // tslint:disable-next-line:no-console
-              console.log(job);
-            }}
-          />
-        </ListWrapper>
+        <>
+          <FiltersWrapper>
+            <Filters
+              filters={state.filters}
+              onChangeFilters={filters => {
+                dispatch({ type: 'FILTER', payload: filters });
+              }}
+            />
+          </FiltersWrapper>
+          <ListWrapper>
+            <JobList
+              jobs={state.jobs}
+              onJobSelected={job => {
+                // tslint:disable-next-line:no-console
+                console.log(job);
+              }}
+            />
+          </ListWrapper>
+        </>
       )}
     </Wrapper>
   );

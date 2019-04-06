@@ -24,7 +24,7 @@ We search for any group containing predefiend tags. Any tags matching specified 
 
 ### salary - range and currency
 
-We search for line containing at least two consecutive digits and currency sing in order to parse `minSalary`, `maxSalary` and `currency` properties. If there's only one number we set it for both `minSalary` and `maxSalary`. We assume that all salaries are specified as total annual income and in case there would be 4 or more digits, we normalize it to such value (eg. 120000 would become 120). Also we consider on offers with USD (\$) or EUR (€) currencies.
+We search for line containing one of the currencies at least one digit in order to parse `minSalary`, `maxSalary` and `currency` properties. If there's only one number we set it for both `minSalary` and `maxSalary`. We assume that all salaries are specified as total annual income and in case there would be less than 4 digits, we assume it's specified as thousands (eg. 120 would become 120000). Also we consider only offers with USD (\$) or EUR (€) currencies.
 
 ### company name\*
 
