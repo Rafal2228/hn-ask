@@ -13,6 +13,7 @@ export function JobList(props: JobListProps) {
     <AutoSizer>
       {({ width, height }) => (
         <List
+          focusable="false"
           rowHeight={JOB_LIST_ITEM_HEIGHT}
           rowCount={props.jobs.length}
           rowRenderer={rowRenderer}

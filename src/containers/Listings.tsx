@@ -1,8 +1,8 @@
+import { Intent, Spinner } from '@blueprintjs/core';
 import React from 'react';
 import styled from 'styled-components';
 import { Filters } from '../components/Filters';
 import { JobList } from '../components/JobList';
-import { Loader } from '../components/Loader';
 import jobsUrl from '../jobs.json';
 import { JobFilters } from '../models/job-filters';
 import { JobOffer } from '../models/job-offer';
@@ -28,15 +28,14 @@ const LoaderWrapper = styled.div`
 `;
 
 const FiltersWrapper = styled.div`
-  background: #161719;
-  color: white;
+  padding: 1em;
   height: 100%;
-  width: 300px;
+  width: 250px;
 `;
 
 const ListWrapper = styled.div`
   height: 100%;
-  width: calc(100% - 300px);
+  width: calc(100% - 250px);
 `;
 
 interface ListingState {
@@ -155,7 +154,7 @@ export function Listings() {
     <Wrapper>
       {state.pending ? (
         <LoaderWrapper>
-          <Loader />
+          <Spinner intent={Intent.PRIMARY} size={100} />
           <span>Loading job offerings ...</span>
         </LoaderWrapper>
       ) : (
@@ -170,7 +169,7 @@ export function Listings() {
           </FiltersWrapper>
           <ListWrapper>
             <JobList
-              jobs={state.jobs}
+              jobs={state.filteredJobs}
               onJobSelected={job => {
                 // tslint:disable-next-line:no-console
                 console.log(job);

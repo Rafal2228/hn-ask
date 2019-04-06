@@ -36,6 +36,7 @@ export function JobListItem(props: JobListItemProps) {
       onClick={props.onClick}
       className={props.className}
       style={props.style}
+      tabIndex={0}
     >
       <TextTruncate>
         {position} @ {company}
