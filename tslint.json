@@ -7,6 +7,8 @@
     "object-literal-sort-keys": false,
     "trailing-comma": false,
     "jsx-no-multiline-js": false,
-    "arrow-parens": false
+    "arrow-parens": false,
+    "jsx-no-lambda": false,
+    "no-submodule-imports": false
   }
 }

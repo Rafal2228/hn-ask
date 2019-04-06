@@ -1,11 +1,11 @@
-import * as React from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Listings } from './containers/Listings';
 
 const Wrapper = styled.div`
-  background: #efefef;
+  background: #eaedf2;
   font-size: 14px;
-  min-height: 100vh;
+  height: 100vh;
   box-sizing: border-box;
 
   * {

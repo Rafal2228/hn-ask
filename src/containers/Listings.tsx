@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { JobList } from '../components/JobList';
 import { Loader } from '../components/Loader';
@@ -7,12 +7,9 @@ import { JobOffer } from '../models/job-offer';
 
 const Wrapper = styled.div`
   width: 100%;
-  min-height: 40vmin;
+  max-width: 1200px;
+  height: 100%;
   margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  padding: 1em;
-  background-color: white;
 `;
 
 const LoaderWrapper = styled.div`
@@ -20,11 +17,15 @@ const LoaderWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  flex: 1;
+  height: 100%;
 
   span {
     padding-top: 1em;
   }
+`;
+
+const ListWrapper = styled.div`
+  height: 100%;
 `;
 
 interface ListingState {
@@ -75,7 +76,7 @@ export function Listings() {
 
       try {
         const res = await fetch(jobsUrl);
-        const jobs = res.json;
+        const jobs = await res.json();
         dispatch({ type: 'LOAD_SUCCESS', payload: jobs });
       } catch (e) {
         dispatch({ type: 'LOAD_FAILURE' });
@@ -93,7 +94,15 @@ export function Listings() {
           <span>Loading job offerings ...</span>
         </LoaderWrapper>
       ) : (
-        <JobList />
+        <ListWrapper>
+          <JobList
+            jobs={state.jobs}
+            onJobSelected={job => {
+              // tslint:disable-next-line:no-console
+              console.log(job);
+            }}
+          />
+        </ListWrapper>
       )}
     </Wrapper>
   );
