@@ -30,7 +30,12 @@ export interface JobListItemProps {
 }
 
 export function JobListItem(props: JobListItemProps) {
+  if (!props.job || !props.onClick) {
+    return null;
+  }
+
   const { position, company } = props.job;
+
   return (
     <Wrapper
       onKeyDown={e => {

@@ -9,6 +9,10 @@ export interface JobListProps {
 }
 
 export function JobList(props: JobListProps) {
+  if (!props.jobs || props.jobs.length < 1) {
+    return null;
+  }
+
   return (
     <AutoSizer>
       {({ width, height }) => (

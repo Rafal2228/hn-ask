@@ -1,15 +1,19 @@
-import { configure, shallow } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import { shallow, mount } from 'enzyme';
 import React from 'react';
 import { App } from './App';
-
-configure({ adapter: new Adapter() });
+import { Listings } from './containers/Listings';
 
 describe('App component', () => {
-  test('should render div with Test', () => {
+  test('should render wrapper with 100vh height', () => {
+    const app = mount(<App />);
+
+    expect(app).toHaveStyleRule('height', '100vh');
+    expect(app).toHaveStyleRule('box-sizing', 'border-box');
+  });
+
+  test('should render Listing component', () => {
     const app = shallow(<App />);
 
-    expect(app.is('div')).toBe(true);
-    expect(app.contains('Test')).toBe(true);
+    expect(app.containsMatchingElement(<Listings />)).toBe(true);
   });
 });
