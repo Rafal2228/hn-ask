@@ -6,7 +6,7 @@
   "main": "",
   "scripts": {
     "clean": "rm -rf dist",
-    "build": "npm run clean && webpack --mode production",
+    "build": "npm run clean && ENV=prod webpack --mode production",
     "serve": "npm run clean && webpack-dev-server",
     "test": "jest",
     "test:watch": "jest --watch",

@@ -1,6 +1,6 @@
 const plugins = ['@babel/plugin-transform-runtime'];
 
-if (process.env['ENV'] === 'prod') {
+if (process.env.ENV === 'prod') {
   plugins.push('babel-plugin-jsx-remove-data-test-id');
 }
 
