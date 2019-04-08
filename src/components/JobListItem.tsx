@@ -38,6 +38,7 @@ export function JobListItem(props: JobListItemProps) {
 
   return (
     <Wrapper
+      data-test-id="JobListItem"
       onKeyDown={e => {
         if (e.key !== 'Enter') {
           return;

@@ -162,7 +162,7 @@ export function Listings() {
   return (
     <Wrapper>
       {state.pending ? (
-        <LoaderWrapper>
+        <LoaderWrapper data-test-id="Listings__Loader">
           <Spinner intent={Intent.PRIMARY} size={100} />
           <span>Loading job offerings ...</span>
         </LoaderWrapper>
@@ -176,7 +176,7 @@ export function Listings() {
               }}
             />
           </FiltersWrapper>
-          <ListWrapper>
+          <ListWrapper data-test-id="Listings__JobList">
             <JobList
               jobs={state.filteredJobs}
               onJobSelected={job => {

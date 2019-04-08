@@ -49,7 +49,14 @@ module.exports = {
       {
         test: /\.json$/,
         type: 'javascript/auto',
-        loader: 'file-loader',
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+            },
+          },
+        ],
         exclude: /node_modules/,
       },
     ],

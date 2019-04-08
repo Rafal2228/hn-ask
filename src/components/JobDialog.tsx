@@ -94,7 +94,7 @@ export const JobDialog = React.memo(
         onClose={props.onClose}
         canOutsideClickClose={true}
       >
-        <div className={Classes.DIALOG_BODY}>
+        <div className={Classes.DIALOG_BODY} data-test-id="JobDialog">
           {renderTruncatedRow('Company', job.company)}
           {renderTruncatedRow('Position', job.position)}
           {job.positionTags && job.positionTags.length > 0 ? (
