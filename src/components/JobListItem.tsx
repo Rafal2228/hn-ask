@@ -33,6 +33,13 @@ export function JobListItem(props: JobListItemProps) {
   const { position, company } = props.job;
   return (
     <Wrapper
+      onKeyDown={e => {
+        if (e.key !== 'Enter') {
+          return;
+        }
+
+        props.onClick(e);
+      }}
       onClick={props.onClick}
       className={props.className}
       style={props.style}

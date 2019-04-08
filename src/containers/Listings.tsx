@@ -2,6 +2,7 @@ import { Intent, Spinner } from '@blueprintjs/core';
 import React from 'react';
 import styled from 'styled-components';
 import { Filters } from '../components/Filters';
+import { JobDialog } from '../components/JobDialog';
 import { JobList } from '../components/JobList';
 import jobsUrl from '../jobs.json';
 import { JobFilters } from '../models/job-filters';
@@ -43,6 +44,7 @@ interface ListingState {
   jobs: JobOffer[] | null;
   filters: JobFilters | null;
   filteredJobs: JobOffer[] | null;
+  selectedJob: JobOffer | null;
 }
 
 const listingDefaultState: ListingState = {
@@ -50,6 +52,7 @@ const listingDefaultState: ListingState = {
   jobs: null,
   filters: null,
   filteredJobs: null,
+  selectedJob: null,
 };
 
 function listingReducer(
@@ -123,6 +126,12 @@ function listingReducer(
         filteredJobs,
       };
     }
+    case 'SELECT_JOB': {
+      return {
+        ...state,
+        selectedJob: action.payload,
+      };
+    }
   }
 
   return state;
@@ -171,11 +180,17 @@ export function Listings() {
             <JobList
               jobs={state.filteredJobs}
               onJobSelected={job => {
-                // tslint:disable-next-line:no-console
-                console.log(job);
+                dispatch({ type: 'SELECT_JOB', payload: job });
               }}
             />
           </ListWrapper>
+
+          <JobDialog
+            job={state.selectedJob}
+            onClose={() => {
+              dispatch({ type: 'SELECT_JOB', payload: null });
+            }}
+          />
         </>
       )}
     </Wrapper>
